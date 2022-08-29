@@ -1,0 +1,6 @@
+gym==0.12.1
+pygame==1.9.4
+opencv-python
+torch 
+matplotlib
+tqdm
