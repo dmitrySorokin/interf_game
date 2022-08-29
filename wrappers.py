@@ -17,8 +17,8 @@ class DiscreteActionWrapper(gym.Wrapper):
         assert len(self.frames) == self.k
         return np.asarray(self.frames).reshape(self.shape)
 
-    def reset(self, actions=None):
-        ob = self.env.reset(actions)
+    def reset(self, actions):
+        ob = self.env.reset(actions=actions)
         #ob = self._shift(ob)
         for _ in range(self.k):
             self.frames.append(self._resize(ob))

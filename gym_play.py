@@ -10,7 +10,7 @@ import numpy as np
 
 
 try:
-    matplotlib.use('TkAgg')
+    # matplotlib.use('TkAgg')
     import matplotlib.pyplot as plt
 except ImportError as e:
     logger.warn('failed to set matplotlib backend, plotting will not work: %s' % str(e))
@@ -109,7 +109,7 @@ def play(env, transpose=True, fps=30, zoom=None, plotter=None, keys_to_action=No
         If None, default key_to_action mapping for that env is used, if provided.
     """
     noop = np.zeros(env.action_space.shape[0])
-    env.reset(noop)
+    env.reset(actions=noop)
     agent.reset()
     rendered = env.render()
 
@@ -139,7 +139,7 @@ def play(env, transpose=True, fps=30, zoom=None, plotter=None, keys_to_action=No
     pygame.display.set_icon(icon)
     screen = pygame.display.set_mode(video_size)
     clock = pygame.time.Clock()
-    obs = env.reset(noop)
+    obs = env.reset(actions=noop)
     agent.reset()
 
     istep = 0
@@ -183,7 +183,7 @@ def play(env, transpose=True, fps=30, zoom=None, plotter=None, keys_to_action=No
                     agent.update_rhs(env.visib, action[0])
 
             if env_done:
-                obs = env.reset(noop)
+                obs = env.reset(actions=noop)
                 env_done = False
                 istep = 0
                 igame += 1
@@ -214,7 +214,7 @@ def play(env, transpose=True, fps=30, zoom=None, plotter=None, keys_to_action=No
                     elif event.key == ord('q'):
                         env_done = False
                         agent_enabled = False
-                        obs = env.reset(noop)
+                        obs = env.reset(actions=noop)
                         plotter.reset()
                         env.set_step_fraction(0.1)
                         istep = 0
